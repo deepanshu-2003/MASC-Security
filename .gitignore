@@ -1,40 +1,68 @@
-# Dependencies
-node_modules/
-jspm_packages/
-web_modules/
+# =============================================================================
+# MASC SECURITY - Root .gitignore
+# =============================================================================
 
-# Python Virtual Environments & Cache
-venv/
-.venv/
-env/
-ENV/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.ipynb_checkpoints
-
-# Environment Variables
+# Environment variables - CRITICAL: Never commit these!
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
+backend/.env
+frontend/.env
+ai_engine/.env
 
-# Production Build Outputs
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
 dist/
 build/
-out/
-.next/
+**/build/
+
+# Python virtual environments
+ai_engine/venv/
+ai_engine/__pycache__/
+ai_engine/*.pyc
+ai_engine/*.pyo
+**/__pycache__/
+**/*.pyc
+**/*.pyo
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 *.log
+logs/
+**/logs/
 
-# IDEs and OS Files
-.vscode/
-.idea/
+# OS files
 .DS_Store
 Thumbs.db
+**/.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.sw?
+
+# MongoDB local data
+data/
+*.db
+
+# Temp / scratch files
+*.tmp
+*.temp
+scratch_simulate_bot.js
+
+# Security audit report (internal use only)
+list.txt
+
+# Python ML model artefacts (large binary files)
+ai_engine/models/*.pkl
+ai_engine/models/*.joblib
+ai_engine/models/*.h5
+ai_engine/*.pkl
+ai_engine/*.joblib
+
+# Uploaded media / large assets
+backend/uploads/
+frontend/public/uploads/
