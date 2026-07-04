@@ -1,7 +1,6 @@
 # MASC Security Platform
 
 <div align="center">
-  <img src="frontend/public/logo.png" alt="MASC Security Logo" width="120" />
   <h3>Enterprise-Grade Security & Adaptive Authentication Platform</h3>
   <p>A full-stack, white-label security platform with AI-powered adaptive authentication, encrypted vault storage, and granular permission governance.</p>
 </div>
