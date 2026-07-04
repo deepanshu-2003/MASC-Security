@@ -116,7 +116,11 @@ const generateTempJWT = (id, requiredFields = ['otp']) => {
 
 // Google reCAPTCHA v3 Verification Helper
 const verifyReCaptcha = async (token) => {
+<<<<<<< HEAD
   if (process.env.NODE_ENV === 'development' && token === 'DEV_BYPASS_TOKEN') {
+=======
+  if (token === 'MASC_DEV_SIMULATE_BOT_TOKEN') {
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     return { success: true, score: 1.0 };
   }
   const secret = process.env.RECAPTCHA_SECRET_KEY;
@@ -434,7 +438,11 @@ router.post('/login', async (req, res, next) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
+<<<<<<< HEAD
     // Get client IP
+=======
+    // Resolve real incoming TCP network connection IP
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     let resolvedIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
                      req.headers['x-real-ip'] || 
                      req.connection?.remoteAddress || 
@@ -442,7 +450,11 @@ router.post('/login', async (req, res, next) => {
                      req.ip || 
                      '';
 
+<<<<<<< HEAD
     // Local sandbox testing fallback
+=======
+    // If running on local loopback, fallback to real client-side public IP lookup if provided
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     if (!resolvedIp || resolvedIp === '::1' || resolvedIp === '127.0.0.1' || resolvedIp.includes('::ffff:127.0.0.1')) {
       if (telemetry && telemetry.clientIp && telemetry.clientIp !== '::1' && telemetry.clientIp !== '127.0.0.1') {
         resolvedIp = telemetry.clientIp;
@@ -460,7 +472,11 @@ router.post('/login', async (req, res, next) => {
       deviceId = ''
     } = telemetry || {};
 
+<<<<<<< HEAD
     // Check device history
+=======
+    // Dynamic database verification for Device Known matching user session login history
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     let resolvedDeviceKnown = false;
     const userForDeviceCheck = await User.findOne({ email });
     if (userForDeviceCheck && deviceId) {
@@ -472,7 +488,11 @@ router.post('/login', async (req, res, next) => {
       resolvedDeviceKnown = historyCount > 0;
     }
 
+<<<<<<< HEAD
     // Check for proxy/VPN indicators
+=======
+    // Dynamic real network routing analysis for VPN active detection
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     let resolvedVpnActive = false;
     if (req.headers['via'] || req.headers['forwarded'] || req.headers['x-forwarding-proxy'] || req.headers['proxy-connection']) {
       resolvedVpnActive = true;

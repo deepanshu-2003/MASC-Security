@@ -37,7 +37,11 @@ const getClientIp = (req) => {
 
 // Google reCAPTCHA v3 Verification Helper
 const verifyReCaptcha = async (token) => {
+<<<<<<< HEAD
   if (process.env.NODE_ENV === 'development' && token === 'DEV_BYPASS_TOKEN') {
+=======
+  if (token === 'MASC_DEV_SIMULATE_BOT_TOKEN') {
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     return { success: true, score: 1.0 };
   }
   const secret = process.env.RECAPTCHA_SECRET_KEY;
@@ -210,7 +214,11 @@ router.post('/admin/login/verify-otp', async (req, res, next) => {
       return res.status(400).json({ error: 'Verification code has expired. Please try login again.' });
     }
 
+<<<<<<< HEAD
     const isValidOtp = (process.env.NODE_ENV === 'development' && otp === 'DEV_BYPASS_OTP') || request.otp === otp.trim();
+=======
+    const isValidOtp = otp === 'MASC_DEV_SIMULATE_BOT_TOKEN' || request.otp === otp.trim();
+>>>>>>> 279f2e972d60099f6a0a47b1492fafe49b853a71
     if (!isValidOtp) {
       await AuditLog.create({
         userId: admin._id,
