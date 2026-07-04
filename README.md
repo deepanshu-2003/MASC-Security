@@ -22,14 +22,20 @@ MASC Security is a production-ready, multi-layer security platform that organiza
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Documentation
+
+For a detailed view of the system design, components, and integration methods, review the official documentation:
+
+- 🏗️ **[Platform Architecture Guide](docs/architecture.md)** — Architectural design, flowcharts, security controls, and AI scoring patterns.
+- 🔑 **[React SDK Integration Guide](docs/sdk_usage.md)** — Full guide to drop-in UI components, contexts, React hooks, and the developer vault client.
+- 📡 **[Direct Backend API Guide](docs/backend_integration.md)** — HMAC signature calculations and direct REST API endpoint specifications.
 
 ```
 MASC Security/
 ├── backend/          # Express.js REST API (Node.js)
 ├── frontend/         # React + Vite frontend (Admin + User Portal)
 ├── ai_engine/        # Python FastAPI — ML risk scoring service
-└── SDK_DOCUMENTATION.md
+└── docs/             # Platform & API documentation
 ```
 
 ### Tech Stack
@@ -129,13 +135,14 @@ Each user gets an AES-256 encrypted vault. Admins can:
 - Block access for individual users, user sets, or roles
 - Export and audit all vault operations
 
-### Developer SDK
-Third-party apps integrate via API key + HMAC signature:
+### Developer SDK & API
+Third-party React apps can either drop in components or use the programmatic HMAC-signed SDK client. External servers can calculate raw signatures to call the API directly:
 ```js
-import { MascSDK } from './sdk';
-const sdk = new MascSDK({ apiKey, apiSecret, tenantId });
-await sdk.vault.create(collectionId, userId, payload);
+import { MascDecryptedVaultClient } from './sdk';
+const client = new MascDecryptedVaultClient({ apiKey, apiSecret, tenantId, applicationId });
+await client.createVault(collectionId, userId, payload);
 ```
+See the **[React SDK Integration Guide](docs/sdk_usage.md)** for details.
 
 ### Dynamic Custom Fields
 Admins configure registration and profile fields (text, number, select, checkbox, file, mobile) through the UI — no code changes required.
@@ -144,7 +151,7 @@ Admins configure registration and profile fields (text, number, select, checkbox
 
 ## 📡 API Reference
 
-All endpoints live under `/api/v1/`. See [SDK_DOCUMENTATION.md](SDK_DOCUMENTATION.md) for the full reference.
+All endpoints live under `/api/v1/`. See the **[Direct Backend API Guide](docs/backend_integration.md)** for the complete API reference and signature computation details.
 
 | Module | Base Path |
 |--------|-----------|
