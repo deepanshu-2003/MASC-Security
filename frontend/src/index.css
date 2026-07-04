@@ -1,0 +1,231 @@
+:root {
+  /* Core Colors */
+  --primary-start: #7C3AED;
+  --primary-end: #A855F7;
+  --secondary-start: #9333EA;
+  --secondary-end: #C084FC;
+  --accent: #8B5CF6;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+
+  /* Theme Colors */
+  --background: #FAFAFC;
+  --surface: #FFFFFF;
+  --surface-hover: #F9FAFB;
+  --text: #374151;
+  --text-dark: #0F172A;
+  --text-muted: #6B7280;
+  --border: rgba(124, 58, 237, 0.08);
+  --border-focus: rgba(124, 58, 237, 0.4);
+
+  /* Gradients */
+  --primary-gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary-end) 100%);
+  --secondary-gradient: linear-gradient(135deg, var(--secondary-start) 0%, var(--secondary-end) 100%);
+  --button-gradient: var(--primary-gradient);
+  --glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.4) 100%);
+  --dark-glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 10px 25px -5px rgba(124, 58, 237, 0.06), 0 8px 16px -6px rgba(124, 58, 237, 0.04);
+  --shadow-lg: 0 20px 40px -10px rgba(124, 58, 237, 0.1), 0 12px 24px -8px rgba(124, 58, 237, 0.06);
+  --shadow-glass: 0 8px 32px 0 rgba(124, 58, 237, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+
+  /* Borders & Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Transitions */
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Background blob decorations for modern glassmorphism look */
+.bg-blobs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.blob-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: var(--primary-gradient);
+  animation: float 25s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: var(--secondary-gradient);
+  animation: float 30s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 8%) scale(1.05); }
+  100% { transform: translate(-5%, -5%) scale(0.95); }
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-dark);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Glassmorphism card utility */
+.glass-panel {
+  background: var(--glass-gradient);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Premium Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  text-decoration: none;
+  gap: 8px;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--button-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35);
+  filter: brightness(1.05);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary-start);
+  border: 1.5px solid var(--primary-start);
+}
+
+.btn-secondary:hover {
+  background: rgba(124, 58, 237, 0.05);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Custom styling for react-phone-number-input */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: white;
+  color: black;
+  transition: var(--transition-fast);
+}
+
+.PhoneInputInput:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  gap: 6px;
+  height: 40px;
+}
+
+.PhoneInputCountrySelect {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: black;
+}
+
