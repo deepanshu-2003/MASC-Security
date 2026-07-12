@@ -609,22 +609,23 @@ router.post('/permissions/grant', protectAdmin, async (req, res, next) => {
       }
     }
 
-    const isLocal = await (async () => {
+    const cluster = await (async () => {
       if (resourceType === 'cluster') {
-        const cluster = await VaultCluster.findById(resourceId);
-        return cluster?.scopeType === 'local';
+        return await VaultCluster.findById(resourceId);
       } else if (resourceType === 'collection') {
         const collection = await VaultCollection.findById(resourceId).populate('clusterId');
-        const cluster = collection?.clusterId;
-        return cluster?.scopeType === 'local';
+        return collection?.clusterId;
       }
-      return false;
+      return null;
     })();
+
+    const isLocal = cluster?.scopeType === 'local';
 
     if (isLocal) {
       if (granteeType === 'user') {
         const u = await User.findById(granteeId);
-        if (!u || (u.role !== 'admin' && u.role !== 'manager')) {
+        const isVaultOwner = u && cluster && u.vaultId === cluster.vaultId;
+        if (!u || (u.role !== 'admin' && u.role !== 'manager' && !isVaultOwner)) {
           return res.status(400).json({ error: 'Local resources only support Admin or Manager user overrides' });
         }
       } else if (granteeType === 'role') {
@@ -676,22 +677,23 @@ router.post('/permissions/revoke', protectAdmin, async (req, res, next) => {
       }
     }
 
-    const isLocal = await (async () => {
+    const cluster = await (async () => {
       if (resourceType === 'cluster') {
-        const cluster = await VaultCluster.findById(resourceId);
-        return cluster?.scopeType === 'local';
+        return await VaultCluster.findById(resourceId);
       } else if (resourceType === 'collection') {
         const collection = await VaultCollection.findById(resourceId).populate('clusterId');
-        const cluster = collection?.clusterId;
-        return cluster?.scopeType === 'local';
+        return collection?.clusterId;
       }
-      return false;
+      return null;
     })();
+
+    const isLocal = cluster?.scopeType === 'local';
 
     if (isLocal) {
       if (granteeType === 'user') {
         const u = await User.findById(granteeId);
-        if (!u || (u.role !== 'admin' && u.role !== 'manager')) {
+        const isVaultOwner = u && cluster && u.vaultId === cluster.vaultId;
+        if (!u || (u.role !== 'admin' && u.role !== 'manager' && !isVaultOwner)) {
           return res.status(400).json({ error: 'Local resources only support Admin or Manager user overrides' });
         }
       } else if (granteeType === 'role') {

@@ -4723,7 +4723,7 @@ function App() {
                                         const u = up.userId;
                                         const isPop = u && typeof u === 'object';
                                         const id = isPop ? u._id : up.userId;
-                                        const name = isPop ? `${u.firstName} ${u.lastName} (${u.email})` : up.userId?.toString()?.slice(-8);
+                                        const name = isPop ? (u.name ? `${u.name} (${u.email})` : `${u.firstName} ${u.lastName} (${u.email})`) : up.userId?.toString()?.slice(-8);
                                         const userInList = usersList.find(usr => usr.email === u?.email || usr._id === id);
                                         const isManagerUser = (isPop && u.role === 'manager') || (userInList && userInList.role === 'manager');
                                         const isSelfUser = id === admin?._id || u?.email === admin?.email;
@@ -4989,7 +4989,7 @@ function App() {
                                         const u = up.userId;
                                         const isPop = u && typeof u === 'object';
                                         const id = isPop ? u._id : up.userId;
-                                        const name = isPop ? `${u.firstName} ${u.lastName} (${u.email})` : up.userId?.toString()?.slice(-8);
+                                        const name = isPop ? (u.name ? `${u.name} (${u.email})` : `${u.firstName} ${u.lastName} (${u.email})`) : up.userId?.toString()?.slice(-8);
                                         const userInList = usersList.find(usr => usr.email === u?.email || usr._id === id);
                                         const isManagerUser = (isPop && u.role === 'manager') || (userInList && userInList.role === 'manager');
                                         const isSelfUser = id === admin?._id || u?.email === admin?.email;
